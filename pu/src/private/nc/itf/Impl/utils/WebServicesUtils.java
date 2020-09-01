@@ -174,9 +174,9 @@ public class WebServicesUtils {
 	public static BaseDAO getBaseDao() {
 		// 获取数据源
 		String oldDataSourceName = InvocationInfoProxy.getInstance().getUserDataSource();
-		BaseDAO dao=new BaseDAO();
+		BaseDAO dao=new BaseDAO(oldDataSourceName);
 		if(null == dao){
-			dao=new BaseDAO(oldDataSourceName);
+			dao=new BaseDAO();
 			if(null == dao){
 				dao = new BaseDAO(SystemConfig.getInstance().getDatasource());
 			}

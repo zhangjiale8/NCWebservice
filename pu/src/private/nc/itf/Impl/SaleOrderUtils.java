@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 
 import nc.bs.dao.BaseDAO;
 import nc.bs.dao.DAOException;
+import nc.impl.pubapp.pattern.database.DBTool;
 import nc.itf.Impl.dto.SaleOrderLogisticlin;
 import nc.itf.Impl.dto.SaleOrderProdlin;
 import nc.itf.Impl.dto.SaleorderInfo;
@@ -226,12 +227,13 @@ public class SaleOrderUtils {
 	public static int insertSoSaleorderExe(SoSaleorderExe soSaleorderExe) throws SQLException {
 		int retVal = 0;
 		if(null != soSaleorderExe){
+			DBTool db=new DBTool();
 			Connection conn = null;
 		    PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
 				//首先需要获取实例,然后获取连接
-				conn = JDBCUtils.getConnection();
+				conn = db.getConnection();
 				//创建语句
 				StringBuffer insertSql = new StringBuffer();
 				insertSql.append(" insert into SO_SALEORDER_EXE (CSALEORDERBID, DR, NARRANGEMONUM, NARRANGEPOAPPNUM, ");
