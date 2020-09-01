@@ -665,7 +665,7 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					prodlins.add(prodlin);
 				}
 			}
-			/*String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
+			String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
 			ordermst.setCsaleorderid(saleOrderNo);
 			Logger.error("ordermst:"+ordermst.toString());
 			dao.insertVOWithPK(ordermst);
@@ -777,9 +777,11 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					//dao.insertVOWithPK(soSaleorderExe);
 					SaleOrderUtils.insertSoSaleorderExe(soSaleorderExe);
 				}
-			}*/
-			
-			SaleOrderBVO [] prodlinArray = null;
+			}
+			/**
+			 * 测试报错：fail to query componentID :getComponentByID
+			 */
+			/*SaleOrderBVO [] prodlinArray = null;
 			if(!CollectionUtils.isEmpty(prodlins)){
 				prodlinArray = new SaleOrderBVO [prodlins.size()];
 				for(int i=0;i<prodlins.size();i++){
@@ -800,7 +802,7 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 			IPFBusiAction pfaction = (IPFBusiAction) NCLocator.getInstance()
 					.lookup(IPFBusiAction.class.getName());
 			pfaction.processAction("WRITE", "N_30_WRITE", null, avo, null,
-					eParams);
+					eParams);*/
 		}
 		retVal.put("result", "success");
 		retVal.put("message","同步成功!");

@@ -173,10 +173,10 @@ public class WebServicesUtils {
 	@SuppressWarnings("unused")
 	public static BaseDAO getBaseDao() {
 		// 获取数据源
-		String oldDataSourceName = InvocationInfoProxy.getInstance().getUserDataSource();
-		BaseDAO dao=new BaseDAO(oldDataSourceName);
+		BaseDAO dao=new BaseDAO("NC6");
 		if(null == dao){
-			dao=new BaseDAO();
+			String oldDataSourceName = InvocationInfoProxy.getInstance().getUserDataSource();
+			dao=new BaseDAO(oldDataSourceName);
 			if(null == dao){
 				dao = new BaseDAO(SystemConfig.getInstance().getDatasource());
 			}
