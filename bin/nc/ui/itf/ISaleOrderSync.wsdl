@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+jaxb:version="2.0"
+xmlns:ns0="http://itf.ui.nc/ISaleOrderSync"
+targetNamespace="http://itf.ui.nc/ISaleOrderSync">
+
+<jaxws:bindings>
+	<jaxws:package name="nc.ui.itf"/>
+</jaxws:bindings>
+
+<wsdl:types>
+   <xsd:schema xmlns:ns="http://itf.ui.nc/ISaleOrderSync"
+			attributeFormDefault="unqualified"
+			elementFormDefault="unqualified"
+			targetNamespace="http://itf.ui.nc/ISaleOrderSync" jaxb:version="2.0">
+	<xsd:annotation>
+    	<xsd:appinfo>
+   			<jaxb:schemaBindings>
+    			<jaxb:package name="nc.ui.itf"/>
+    		</jaxb:schemaBindings>
+   		</xsd:appinfo>
+   	</xsd:annotation>
+	<xsd:element name="ncSaleOrderSync">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="string"  minOccurs="0" nillable="true" type="xsd:string"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+	<xsd:element name="ncSaleOrderSyncResponse">
+         <xsd:complexType>
+            <xsd:sequence>
+				<xsd:element name="return"  minOccurs="0" nillable="true" type="xsd:string"/>
+             </xsd:sequence>  
+         </xsd:complexType>
+     </xsd:element>
+   </xsd:schema>
+</wsdl:types>
+    <wsdl:message name="ncSaleOrderSyncRequest">
+        <wsdl:part name="parameters"  element="ns0:ncSaleOrderSync"/>
+    </wsdl:message>
+    <wsdl:message name="ncSaleOrderSyncResponse">
+        <wsdl:part name="parameters"  element="ns0:ncSaleOrderSyncResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="ISaleOrderSyncPortType">
+        <wsdl:operation name="ncSaleOrderSync">
+            <wsdl:input message="ns0:ncSaleOrderSyncRequest" wsaw:Action="urn:ncSaleOrderSync"/>
+            <wsdl:output message="ns0:ncSaleOrderSyncResponse" wsaw:Action="urn:ncSaleOrderSyncResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    
+    <wsdl:binding name="ISaleOrderSyncSOAP11Binding" type="ns0:ISaleOrderSyncPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="ncSaleOrderSync">
+            <soap:operation soapAction="urn:ncSaleOrderSync" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ISaleOrderSync">
+        <wsdl:port name="ISaleOrderSyncSOAP11port_http" binding="ns0:ISaleOrderSyncSOAP11Binding">
+            <soap:address location="http://localhost/uapws/service/ISaleOrderSync"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

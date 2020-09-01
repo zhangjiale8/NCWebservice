@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module>
+	<public>
+		<component name="ISaleOrderSync">
+			<interface>nc.ui.itf.ISaleOrderSync</interface>
+			<implementation>nc.itf.Impl.SaleOrderSyncImpl</implementation>
+			<extension class="nc.uap.ws.deploy.OxbWSExtensionProcessor">
+				<wsdl>/nc/ui/itf/ISaleOrderSync.wsdl</wsdl>
+				<address>/ISaleOrderSync</address>
+			</extension>
+		</component>
+	</public>
+	<private>
+	</private>
+</module>
