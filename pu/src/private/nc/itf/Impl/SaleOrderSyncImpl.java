@@ -2,12 +2,15 @@ package nc.itf.Impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import nc.bs.dao.BaseDAO;
+import nc.bs.framework.common.InvocationInfoProxy;
+import nc.bs.framework.common.NCLocator;
 import nc.bs.logging.Logger;
 import nc.itf.Impl.dto.SaleOrderLogisticlin;
 import nc.itf.Impl.dto.SaleOrderProdlin;
@@ -19,6 +22,7 @@ import nc.itf.Impl.entity.SmUser;
 import nc.itf.Impl.entity.SoSaleorderExe;
 import nc.itf.Impl.utils.TimeTools;
 import nc.itf.Impl.utils.WebServicesUtils;
+import nc.itf.uap.pf.IPFBusiAction;
 import nc.ui.itf.ISaleOrderSync;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.lang.UFBoolean;
@@ -27,6 +31,7 @@ import nc.vo.pub.lang.UFDateTime;
 import nc.vo.pub.lang.UFDouble;
 import nc.vo.so.m30.entity.SaleOrderBVO;
 import nc.vo.so.m30.entity.SaleOrderHVO;
+import nc.vo.so.m30.entity.SaleOrderVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -660,7 +665,7 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					prodlins.add(prodlin);
 				}
 			}
-			String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
+			/*String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
 			ordermst.setCsaleorderid(saleOrderNo);
 			Logger.error("ordermst:"+ordermst.toString());
 			dao.insertVOWithPK(ordermst);
@@ -772,9 +777,9 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					//dao.insertVOWithPK(soSaleorderExe);
 					SaleOrderUtils.insertSoSaleorderExe(soSaleorderExe);
 				}
-			}
+			}*/
 			
-			/*SaleOrderBVO [] prodlinArray = null;
+			SaleOrderBVO [] prodlinArray = null;
 			if(!CollectionUtils.isEmpty(prodlins)){
 				prodlinArray = new SaleOrderBVO [prodlins.size()];
 				for(int i=0;i<prodlins.size();i++){
@@ -788,10 +793,14 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 			avo.setChildrenVO(prodlinArray);
 			InvocationInfoProxy.getInstance().setGroupId(ordermst.getPk_group());
 			InvocationInfoProxy.getInstance().setUserId(ordermst.getCreator());
-			IPFBusiAction pfaction_er = (IPFBusiAction) NCLocator.getInstance()
+			HashMap<String, Object> eParams = new HashMap<String, Object>();
+			eParams.put("notechecked", "notechecked");
+			eParams.put("nc.bs.scmpub.pf.ORIGIN_VO_PARAMETER",
+					new SaleOrderVO[] { avo });
+			IPFBusiAction pfaction = (IPFBusiAction) NCLocator.getInstance()
 					.lookup(IPFBusiAction.class.getName());
-			pfaction_er.processAction("WRITE", "N_30_WRITE", null, avo, null,
-					null);*/
+			pfaction.processAction("WRITE", "N_30_WRITE", null, avo, null,
+					eParams);
 		}
 		retVal.put("result", "success");
 		retVal.put("message","同步成功!");
