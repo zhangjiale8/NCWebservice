@@ -665,7 +665,8 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					prodlins.add(prodlin);
 				}
 			}
-			/*String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
+			
+			String saleOrderNo = WebServicesUtils.generatePkValue(dao,pkGroup,20);
 			ordermst.setCsaleorderid(saleOrderNo);
 			Logger.error("ordermst:"+ordermst.toString());
 			dao.insertVOWithPK(ordermst);
@@ -777,11 +778,12 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 					//dao.insertVOWithPK(soSaleorderExe);
 					SaleOrderUtils.insertSoSaleorderExe(soSaleorderExe);
 				}
-			}*/
+			}
 			/**
-			 * 测试报错：fail to query componentID :getComponentByID
+			 * 2020-09-01 10:14测试报错：fail to query componentID :getComponentByID
+			 * 2020-09-02 11:14测试报错：java.lang.IllegalArgumentException: 对象不是声明类的实例  at $Proxy342.processAction(Unknown Source)
 			 */
-			SaleOrderBVO [] prodlinArray = null;
+			/*SaleOrderBVO [] prodlinArray = null;
 			if(!CollectionUtils.isEmpty(prodlins)){
 				prodlinArray = new SaleOrderBVO [prodlins.size()];
 				for(int i=0;i<prodlins.size();i++){
@@ -793,6 +795,7 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 			SaleOrderVO avo = new SaleOrderVO();
 			avo.setParentVO(ordermst);
 			avo.setChildrenVO(prodlinArray);
+			
 			InvocationInfoProxy.getInstance().setGroupId(ordermst.getPk_group());
 			InvocationInfoProxy.getInstance().setUserId(ordermst.getCreator());
 			HashMap<String, Object> eParams = new HashMap<String, Object>();
@@ -802,7 +805,7 @@ public class SaleOrderSyncImpl implements ISaleOrderSync{
 			IPFBusiAction pfaction = (IPFBusiAction) NCLocator.getInstance()
 					.lookup(IPFBusiAction.class.getName());
 			pfaction.processAction("WRITE", "N_30_WRITE", null, avo, null,
-					eParams);
+					eParams);*/
 			retVal.put("result", "success");
 			retVal.put("message","同步成功!");
 		}
